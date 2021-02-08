@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  OfficeLinuxSetup:
+    container_name: OfficeLinuxTest
+    image: office-linux:0.1
+    build: .
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw # For displaying
+    # For attaching shells
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    # Environment Variables
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
+    # Startup Command
+    network_mode: host
+    command: bash -c
+      "wine /root/Downloads/OfficeInstaller.exe"
+
+# Make sure to open the xserver: xhost +local:rooat
+# To close, run: xhost -local:root
